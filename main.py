@@ -67,50 +67,53 @@ def get_key():
 
     return False
 
-print(" ______________________________________________________________________________________")
-print("|                               Encrypt & Decrypt Files                                 |")
-print("|                                   by Vignesh Hegde                                    |")
-print("|_______________________________________________________________________________________|")
-print("| NOTE : There is no option to reset password once lost data cannot be recovered.       |")
-print("| This is just a fun project, I am(vignesh hegde) not responsible for any loss of data  |")
-print("|_______________________________________________________________________________________|")
+def start():
+    print(" ______________________________________________________________________________________")
+    print("|                               Encrypt & Decrypt Files                                 |")
+    print("|                                   by Vignesh Hegde                                    |")
+    print("|_______________________________________________________________________________________|")
+    print("| NOTE : There is no option to reset password once lost data cannot be recovered.       |")
+    print("| This is just a fun project, I am(vignesh hegde) not responsible for any loss of data  |")
+    print("|_______________________________________________________________________________________|")
 
-file_loc = input("File Name : ").strip()
+    file_loc = input("File Name : ").strip()
 
 
-flag = True
+    flag = True
 
-while flag:
-    key = get_key()
-    if not key:
-        print("Key did not match, Try again.")
-    else:
-        flag = False
-
-flag = True
-
-try:
-    fernet = get_fernet(key)
-except Exception as e:
-    print("Unable to  generate fernet")
-    exit()
-
-while flag:
-    choice = input("e: encrypt\nd: decrypy\nx: exit\n").strip()
-    if choice == 'e' or choice == 'E':
-        try:
+    while flag:
+        key = get_key()
+        if not key:
+            print("Key did not match, Try again.")
+        else:
             flag = False
-            copy_encrypt_data(file_loc, fernet)
-            input("Completed\nWARNING : Do Not Forget Password !")
-        except:
-            input("Unable to encrypt")
-    elif choice == 'd' or choice == 'D':
-        try:
-            flag = False
-            copy_decrypt_data(file_loc, fernet)
-            input("Completed")
-        except:
-            input("Unable to decrypt")
-    elif choice == 'x' or choice == 'X':
-        flag = False
 
+    flag = True
+
+    try:
+        fernet = get_fernet(key)
+    except Exception as e:
+        print("Unable to  generate fernet")
+        exit()
+
+    while flag:
+        choice = input("e: encrypt\nd: decrypy\nx: exit\n").strip()
+        if choice == 'e' or choice == 'E':
+            try:
+                flag = False
+                copy_encrypt_data(file_loc, fernet)
+                input("Completed\nWARNING : Do Not Forget Password !")
+            except:
+                input("Unable to encrypt")
+        elif choice == 'd' or choice == 'D':
+            try:
+                flag = False
+                copy_decrypt_data(file_loc, fernet)
+                input("Completed")
+            except:
+                input("Unable to decrypt")
+        elif choice == 'x' or choice == 'X':
+            flag = False
+
+if __name__ == "__main__":
+    start()
